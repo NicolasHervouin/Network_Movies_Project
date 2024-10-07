@@ -1,5 +1,6 @@
 import pandas as pd
 import networkx as nx
+import plotly.io as pio
 
 def load_movies_data():
     df1 = pd.read_csv('data/amazon_prime_titles.csv') 
@@ -16,3 +17,6 @@ def load_graph_data():
 
 def load_graph_data2():
     return nx.read_graphml("data/movies_actors_graph2.graphml")
+
+def load_graph_data3():
+    return pio.read_json("data/figure.json")
