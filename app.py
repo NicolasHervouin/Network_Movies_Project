@@ -1,0 +1,31 @@
+from dash import Dash, dcc, html, page_container, callback, Input, Output
+
+# Initialize the Dash app with multi-page support
+app = Dash(__name__, use_pages=True, suppress_callback_exceptions=True)
+app.config.suppress_callback_exceptions = True
+# Main layout with improved page navigation
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),  # Location component to track the current URL
+    html.H1("Network Theory Project", style={'text-align': 'center', 'font-family': 'Arial, sans-serif'}),
+    
+    # Navigation Links
+    html.Div(id='nav-bar', style={'text-align': 'center', 'margin-bottom': '30px'}),
+    
+    # Page content container
+    page_container
+])
+
+# Callback to dynamically apply the active class based on the current page
+@app.callback(
+    Output('nav-bar', 'children'),
+    [Input('url', 'pathname')]  # Use the 'url' component to get the current pathname
+)
+def update_navbar(pathname):
+    return html.Div([
+        dcc.Link('Full Network', href='/page1', className='nav-link nav-link-active' if pathname == '/page1' else 'nav-link'),
+        dcc.Link('Movie Network', href='/page2', className='nav-link nav-link-active' if pathname == '/page2' else 'nav-link'),
+        dcc.Link('Network between 2 movies', href='/page3', className='nav-link nav-link-active' if pathname == '/page3' else 'nav-link'),
+    ])
+
+if __name__ == '__main__':
+    app.run_server(debug=True)

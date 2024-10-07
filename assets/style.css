@@ -1,0 +1,44 @@
+/* General link style */
+.nav-link {
+    font-family: 'Verdana', sans-serif;
+    background-color: #6634db;  /* Blue background */
+    color: rgb(6, 2, 27);               /* White text */
+    padding: 10px 20px;         /* Padding around the text */
+    margin: 0 10px;             /* Spacing between links */
+    border-radius: 5px;         /* Rounded corners */
+    text-decoration: none;      /* Remove underline */
+    display: inline-block;      /* Ensure the padding applies properly */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+    background-color: #2C81BA;  /* Darker blue on hover */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+/* Active link (when the current page is selected) */
+.nav-link-active {
+    background-color: #2ECC71;  /* Green background for the active page */
+}
+
+/* Centering the navigation bar */
+.nav-bar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Optional: Add some more styles to the overall page layout */
+body {
+    font-family: 'Arial', sans-serif; 
+    background-color: #eb3a12;  /* Light grey background */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-family: 'Helvetica', sans-serif;  /* Customize font for headings */
+}
