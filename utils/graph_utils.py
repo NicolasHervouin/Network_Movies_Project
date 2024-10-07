@@ -1,5 +1,7 @@
 import networkx as nx
 import plotly.graph_objs as go
+import pandas as pd
+import math as math
 
 def draw_interactive_graph_with_focus(G, focus=None):
     pos = nx.spring_layout(G)
@@ -156,3 +158,53 @@ def draw_interactive_sub_graph_with_legend(sub_graph, list_in, G):
     )
     
     fig.show()
+    
+def get_recommendation(root, G, df):
+    commons_dict = {}  # Dictionnaire pour stocker les films communs et leurs liens
+    
+    # Parcourir les voisins du film racine
+    for e in G.neighbors(root):
+        # Pour chaque voisin du voisin, vérifier s'il s'agit d'un autre film
+        for e2 in G.neighbors(e):
+            if e2 == root:  # Ignorer le film racine lui-même
+                continue
+            if G.nodes[e2]['label'] == "MOVIE":  # On ne garde que les nœuds de type "MOVIE"
+                commons = commons_dict.get(e2)
+                if commons is None:
+                    commons_dict.update({e2: [e]})  # Si le film n'existe pas encore, on l'ajoute avec son voisin
+                else:
+                    commons.append(e)  # Si le film est déjà présent, on ajoute le voisin à sa liste
+                    commons_dict.update({e2: commons})
+    
+    # Création des listes pour stocker les résultats
+    movies = []
+    weight = []
+    provenance = []
+    
+    # Calcul de la pondération pour chaque film recommandé
+    for key, values in commons_dict.items():
+        w = 0.0
+        # La pondération est calculée en fonction des connexions communes (avec une pondération logarithmique)
+        for e in values:
+            degree_e = G.degree(e)
+            if degree_e > 1:  # Safeguard against log(1) or log(0)
+                w += 1 / math.log(degree_e)
+            else:
+                w += 1  # Handle very low degrees directly
+        
+        movies.append(key)
+        weight.append(w)
+
+        # Récupérer la provenance du film (service de streaming : Netflix, Disney, etc.)
+        if key in df['title'].values and 'service' in df.columns:
+            provenance.append(df[df['title'] == key]['service'].values[0])
+        else:
+            provenance.append('Unknown')
+
+    # Créer un DataFrame pour les résultats avec les colonnes 'movie', 'weight', et 'provenance'
+    result = pd.DataFrame({'movie': movies, 'weight': weight, 'provenance': provenance})
+    
+    # Trier les résultats par pondération décroissante
+    result.sort_values(by='weight', ascending=False, inplace=True)
+    
+    return result

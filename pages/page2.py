@@ -3,6 +3,7 @@ from utils.image_utils import get_first_google_image
 from utils.graph_utils import draw_interactive_graph_with_focus
 from data.load_data import load_movies_data, load_graph_data
 import plotly.graph_objs as go
+from utils.graph_utils import get_recommendation
 
 # Register the page for multi-page navigation
 register_page(__name__, path="/page2")
@@ -55,22 +56,34 @@ layout = html.Div([
         ], style={'display': 'inline-block', 'vertical-align': 'top', 'width': '68%'})
     ], style={'display': 'flex', 'justify-content': 'space-between'}),
 
+    html.Div([
     # Movie details (Block 6)
     html.Div(id='film-details-page2', style={
-        'background-color': '#3498DB', 'color': 'white', 'width': '100%', 'height': '32vh', 
+        'background-color': '#3498DB', 'color': 'white', 'width': '48%', 'height': '32vh', 
         'margin-bottom': '5px', 'border-radius': '10px', 'box-shadow': '2px 2px 5px rgba(0, 0, 0, 0.5)', 
-        'padding': '10px', 'font-family': 'Arial, sans-serif', 'overflow-y': 'auto'
+        'padding': '10px', 'font-family': 'Arial, sans-serif', 'overflow-y': 'auto', 'display': 'inline-block'
     }),
+    
+    # Movie recommendations (Block 7)
+    html.Div(id='film-recommendations', style={
+        'background-color': '#8498CB', 'color': 'white', 'width': '48%', 'height': '32vh', 
+        'margin-bottom': '5px', 'border-radius': '10px', 'box-shadow': '2px 2px 5px rgba(0, 0, 0, 0.5)', 
+        'padding': '10px', 'font-family': 'Arial, sans-serif', 'overflow-y': 'auto', 'display': 'inline-block',
+        'margin-left': '2%'
+    })
+    ], style={'display': 'flex', 'justify-content': 'space-between'}),
 ])
 
 # Callback to update the poster, movie details, and the graph
 @callback(
     [Output('film-poster-page2', 'src'),
      Output('film-details-page2', 'children'),
-     Output('interactive-graph-page2', 'figure')],
+     Output('interactive-graph-page2', 'figure'),
+     Output('film-recommendations', 'children')],
     [Input('search-button-page2', 'n_clicks')],
     [State('film-dropdown-page2', 'value')]
 )
+
 def update_image_details_and_graph(n_clicks, selected_film):
     if n_clicks > 0 and selected_film:
         # Fetch image
@@ -94,6 +107,26 @@ def update_image_details_and_graph(n_clicks, selected_film):
         subgraph = G_movies_actors.subgraph([selected_film] + neighbors)
         graph_figure = draw_interactive_graph_with_focus(subgraph, focus=selected_film)
 
-        return image_url, film_details, graph_figure
+        # Get recommendations as DataFrame
+        film_reco = get_recommendation(selected_film, G_movies_actors, titles_df)
+        
+        # Take the first 5 rows of the DataFrame
+        film_reco_top5 = film_reco.head(5)
+        
+        # Convert the DataFrame rows to Dash components (html.Table or html.Div)
+        table_header = [
+            html.Thead(html.Tr([html.Th(col) for col in film_reco_top5.columns]))
+        ]
+        table_body = [
+            html.Tbody([
+                html.Tr([html.Td(film_reco_top5.iloc[i][col]) for col in film_reco_top5.columns])
+                for i in range(len(film_reco_top5))
+            ])
+        ]
+        film_reco_table = html.Table(table_header + table_body, style={'width': '100%', 'font-family': 'Arial, sans-serif'})
 
-    return '', '', go.Figure()
+        return image_url, film_details, graph_figure, film_reco_table
+
+    return '', '', go.Figure(), html.P("No recommendations available")
+
+
