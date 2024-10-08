@@ -12,7 +12,7 @@ app.layout = html.Div([
     html.Div([
         # Sidebar for navigation
         html.Div(id='nav-bar', style={
-            'width': '200px', 
+            'width': '350px', 
             'padding': '20px', 
             'background-color': '#f8f9fa', 
             'position': 'fixed', 
@@ -25,7 +25,7 @@ app.layout = html.Div([
         # Page content container
         html.Div([
             page_container
-        ], style={'margin-left': '220px', 'padding': '20px'})  # Add margin to shift content right of the sidebar
+        ], style={'margin-left': '370px', 'padding': '20px'})  # Add margin to shift content right of the sidebar
     ])
 ])
 
