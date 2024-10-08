@@ -1,7 +1,7 @@
 from dash import html, dcc, callback, Output, Input, State, register_page
 from utils.image_utils import get_first_google_image
 from utils.graph_utils import draw_interactive_graph_with_focus
-from data.load_data import load_movies_data, load_graph_data
+from data.load_data import load_movies_data, load_graph_data2
 import plotly.graph_objs as go
 from utils.graph_utils import get_recommendation
 
@@ -10,7 +10,7 @@ register_page(__name__, path="/page2")
 
 # Load movie data and graph data
 titles_df = load_movies_data()
-G_movies_actors = load_graph_data()
+G_movies_actors = load_graph_data2()
 
 # Create the options for the dropdown menu
 film_titles_options = [{'label': str(title), 'value': str(title)} for title in titles_df['title'].dropna().tolist()]

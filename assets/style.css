@@ -1,44 +1,77 @@
-/* General link style */
+/* Sidebar style */
+.sidebar {
+    background-color: #1A1A1A;  /* Fond noir pour la side bar */
+    color: #FFFFFF;              /* Texte blanc pour un contraste */
+    width: 250px;                /* Largeur de la side bar */
+    height: 100vh;               /* Hauteur pleine */
+    position: fixed;             /* Fixé sur le côté gauche */
+    top: 0;
+    left: 0;
+    padding: 20px;               /* Espace intérieur */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Ombre subtile sur la droite */
+}
+
+.sidebar a {
+    display: block;
+    color: #FFFFFF;              /* Texte blanc pour les liens */
+    padding: 15px 0;
+    text-decoration: none;       /* Pas de soulignement */
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #333333;   /* Couleur gris foncé au survol */
+    border-radius: 5px;
+}
+
+/* Rest of the page content */
+.main-content {
+    margin-left: 250px;          /* Décalage de la largeur de la side bar */
+    background-color: #FFFFFF;   /* Fond blanc pour le reste de la page */
+    color: #333333;              /* Couleur du texte pour une bonne lisibilité */
+    padding: 40px;
+}
+
+/* General link style (inside main content) */
 .nav-link {
     font-family: 'Verdana', sans-serif;
-    background-color: #6634db;  /* Blue background */
-    color: rgb(6, 2, 27);               /* White text */
-    padding: 10px 20px;         /* Padding around the text */
-    margin: 0 10px;             /* Spacing between links */
-    border-radius: 5px;         /* Rounded corners */
-    text-decoration: none;      /* Remove underline */
-    display: inline-block;      /* Ensure the padding applies properly */
-    font-family: Arial, sans-serif;
+    background-color: #3B49B1;   /* Fond bleu foncé pour les boutons de navigation */
+    color: #F0EDEE;              /* Texte blanc */
+    padding: 12px 25px;
+    margin: 0 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-/* Hover effect for links */
 .nav-link:hover {
-    background-color: #2C81BA;  /* Darker blue on hover */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
-    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    background-color: #2C3E8C;   /* Fond plus sombre au survol */
+    color: #FFFFFF;              /* Texte blanc pur */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
 }
 
-/* Active link (when the current page is selected) */
+/* Active link (for current page) */
 .nav-link-active {
-    background-color: #2ECC71;  /* Green background for the active page */
+    background-color: #2ECC71;   /* Vert pour le lien actif */
+    color: #FFFFFF;
 }
 
-/* Centering the navigation bar */
-.nav-bar {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Optional: Add some more styles to the overall page layout */
+/* General page layout */
 body {
-    font-family: 'Arial', sans-serif; 
-    background-color: #eb3a12;  /* Light grey background */
+    font-family: 'Arial', sans-serif;
+    background-color: #FFFFFF;   /* Fond blanc pour le reste de la page */
     margin: 0;
     padding: 0;
 }
 
 h1, h2, h3 {
-    font-family: 'Helvetica', sans-serif;  /* Customize font for headings */
+    font-family: 'Helvetica', sans-serif;
+    color: #333333;              /* Couleur foncée pour les titres */
+    margin-bottom: 20px;
 }
+ 
