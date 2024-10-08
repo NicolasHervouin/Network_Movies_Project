@@ -15,6 +15,9 @@ G_movies_actors = load_graph_data2()
 # Create the options for the dropdown menu
 film_titles_options = [{'label': str(title), 'value': str(title)} for title in titles_df['title'].dropna().tolist()]
 
+# Define a default film
+default_film = film_titles_options[0]['value'] if film_titles_options else None
+
 # Layout for Page 2
 layout = html.Div([
     html.H2("DashBoard 2 : 1st degree network of a movie"),
@@ -24,6 +27,7 @@ layout = html.Div([
         dcc.Dropdown(
             id='film-dropdown-page2',
             options=film_titles_options,
+            value=default_film,
             placeholder='Sélectionnez un film',
             style={'width': '80%', 'font-family': 'Arial, sans-serif'}
         ),
@@ -85,7 +89,7 @@ layout = html.Div([
 )
 
 def update_image_details_and_graph(n_clicks, selected_film):
-    if n_clicks > 0 and selected_film:
+    if n_clicks > 0 or selected_film:
         # Fetch image
         image_url = get_first_google_image(selected_film)
 
