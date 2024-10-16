@@ -36,7 +36,11 @@ app.layout = html.Div([
 )
 def update_navbar(pathname):
     return html.Div([        
-        html.H1("Network Theory Project", style={'text-align': 'center', 'font-family': 'Arial, sans-serif'}),
+        dcc.Link(
+            html.H1("Network Theory Project", style={'text-align': 'center', 'font-family': 'Arial, sans-serif'}),
+            href='/',
+            style={'text-decoration': 'none'}    
+        ),
         dcc.Link('Full Network', href='/page1', className='nav-link nav-link-active' if pathname == '/page1' else 'nav-link', style={'display': 'block', 'margin-bottom': '10px'}),
         dcc.Link('Movie Network', href='/page2', className='nav-link nav-link-active' if pathname == '/page2' else 'nav-link', style={'display': 'block', 'margin-bottom': '10px'}),
         dcc.Link('Network between 2 movies', href='/page3', className='nav-link nav-link-active' if pathname == '/page3' else 'nav-link', style={'display': 'block', 'margin-bottom': '10px'}),
