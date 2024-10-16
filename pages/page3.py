@@ -11,6 +11,9 @@ titles_df = load_movies_data()
 G_movies_actors = load_graph_data()
 G = load_graph_data2()
 
+film1 = load_movies_data().iloc[0]['title']
+film2 = load_movies_data().iloc[-1]['title']
+
 # Create options for the dropdowns
 film_titles_options = [{'label': str(title), 'value': str(title)} for title in titles_df['title'].dropna().tolist()]
 
@@ -23,6 +26,7 @@ layout = html.Div([
         dcc.Dropdown(
             id='movie-1-dropdown',
             options=film_titles_options,
+            value=film1,
             placeholder='Select the first movie',
             style={'width': '45%', 'display': 'inline-block', 'margin-right': '10px'}
         ),
@@ -31,6 +35,7 @@ layout = html.Div([
         dcc.Dropdown(
             id='movie-2-dropdown',
             options=film_titles_options,
+            value=film2,
             placeholder='Select the second movie',
             style={'width': '45%', 'display': 'inline-block'}
         ),
