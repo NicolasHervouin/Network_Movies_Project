@@ -150,14 +150,12 @@ def draw_interactive_sub_graph_with_legend(sub_graph, list_in, G):
                         showlegend=True,
                         hovermode='closest',
                         margin=dict(b=20, l=5, r=5, t=40),
-                        width=1100,  # Ajuster la largeur du graphique
-                        height=800,  # Ajuster la hauteur du graphique
                         xaxis=dict(showgrid=False, zeroline=False, visible=False),
                         yaxis=dict(showgrid=False, zeroline=False, visible=False)
                     )
     )
     
-    fig.show()
+    return fig
     
 def get_recommendation(root, G, df):
     commons_dict = {}  # Dictionnaire pour stocker les films communs et leurs liens

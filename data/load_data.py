@@ -7,6 +7,10 @@ def load_movies_data():
     df2 = pd.read_csv('data/disney_plus_titles.csv') 
     df3 = pd.read_csv('data/netflix_titles.csv') 
     
+    df1['service'] = 'Amazon Prime'
+    df2['service'] = 'Disney Plus'
+    df3['service'] = 'Netflix'
+    
     df = pd.concat([df1, df2, df3], ignore_index=True)
     df = df[(df['release_year'] >= 2000) & (df['release_year'] <= 2005)]
 
